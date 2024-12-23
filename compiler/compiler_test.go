@@ -49,23 +49,23 @@ var testTokens = []token{
 var testAst = ast{
 	kind: "Program",
 	body: []node{
-		node{
+		{
 			kind: "CallExpression",
 			name: "add",
 			params: []node{
-				node{
+				{
 					kind:  "PlayerLiteral",
 					value: "TRENT",
 				},
-				node{
+				{
 					kind: "CallExpression",
 					name: "subtract",
 					params: []node{
-						node{
+						{
 							kind:  "PlayerLiteral",
 							value: "SALAH",
 						},
-						node{
+						{
 							kind:  "PlayerLiteral",
 							value: "VIRGIL",
 						},
