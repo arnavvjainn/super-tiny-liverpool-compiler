@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"unicode"
 )
 
@@ -109,11 +110,92 @@ func isLetter(char string) bool {
 	return false
 }
 
-func compiler(input string) []token {
-	tokens := tokenizer(input)
+/**
+* ============================================================================
+*                                 ヽ/❀o ل͜ o\ﾉ
+*                                THE PARSER!!!
+* ============================================================================
+ */
 
-	// and simply return the output!
-	return tokens
+type node struct {
+	kind       string
+	value      string
+	name       string
+	callee     *node
+	expression *node
+	body       []node
+	params     []node
+	arguments  *[]node
+	context    *[]node
+}
+
+type ast node
+
+var pc int
+
+var pt []token
+
+func parser(tokens []token) ast {
+	pc = 0
+	pt = tokens
+
+	ast := ast{
+		kind: "Program",
+		body: []node{},
+	}
+
+	for pc < len(pt) {
+		ast.body = append(ast.body, walk())
+	}
+
+	return ast
+}
+
+// (add TRENT (subtract SALAH VIRGIL))
+func walk() node {
+
+	token := pt[pc]
+
+	// token is player YNWA
+	if token.kind == "player" {
+		pc++
+		return node{
+			kind:  "PlayerLiteral",
+			value: token.value,
+		}
+	}
+
+	// start of expression
+	if token.kind == "paren" && token.value == "(" {
+		pc++
+		token = pt[pc]
+
+		n := node{
+			kind:   "CallExpression",
+			name:   token.value,
+			params: []node{},
+		}
+
+		pc++
+		token = pt[pc]
+
+		// recursive call to walk() closing parenthesis
+		for token.kind != "paren" || (token.kind == "paren" && token.value != ")") {
+			n.params = append(n.params, walk())
+			token = pt[pc]
+		}
+		pc++
+		return n
+	}
+
+	log.Fatal(token.kind)
+	return node{}
+}
+
+func compiler(input string) ast {
+	tokens := tokenizer(input)
+	ast := parser(tokens)
+	return ast
 }
 
 func main() {
