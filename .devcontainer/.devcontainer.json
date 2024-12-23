@@ -1,0 +1,15 @@
+{
+    "name": "Go Development Container",
+    "build": {
+        "dockerfile": "Dockerfile"
+    },
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "golang.go"
+            ]
+        }
+    },
+    "forwardPorts": [8080],
+    "postCreateCommand": "go mod download"
+}
