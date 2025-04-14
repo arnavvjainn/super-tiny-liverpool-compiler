@@ -6,7 +6,7 @@ Its the [The Super Tiny Compiler][1]  but instead of numbers you write liverpool
 - Players' jersey number will be treated as number for the operation 
 
 ### TABLE COMING SOON
-I will add a table PLAYER -> JERSEY NUMBER later for all those f*cks who dont support Liverpool
+I will add a table PLAYER -> JERSEY NUMBER later for all those who dont support Liverpool
 
 ### YOU'LL NEVER WALK ALONE
 
